@@ -95,7 +95,7 @@ export default {
       this.$store.commit('SET_TABLE_DATA', tableData);
       this.$store.commit('SET_DATA_EDIT', null);
       this.$store.commit('SET_INDEX_EDIT', null);
-      this.$store.commit('SET_OPEN_EDIT', false);
+      this.cancel();
     },
   },
 };

@@ -9,7 +9,6 @@
       :multiple-sort="multipleSort"
       @sort-change="sortChange"
       :select-all="selectALL"
-      :select-change="selectChange"
       :select-group-change="selectGroupChange"
     ></v-table>
     <div class="btn-group">
@@ -31,7 +30,6 @@
 </template>
 
 <script>
-// import dummyColumn from '@/dummy/dummyColumn.js';
 import FilterSearch from './FilterSearch.vue';
 
 export default {
@@ -49,9 +47,6 @@ export default {
     };
   },
   methods: {
-    customComp(params) {
-      console.log(params);
-    },
     sortChange(params) {
       let { name, username } = params;
       let temp = this.$store.state.table.columns;
@@ -92,14 +87,9 @@ export default {
     },
     selectALL(selection) {
       this.dataBulk = selection;
-      console.log('select-aLL', selection);
-    },
-    selectChange(selection, rowData) {
-      console.log('select-change', selection, rowData);
     },
     selectGroupChange(selection) {
       this.dataBulk = selection;
-      console.log('select-group-change', selection);
     },
     edit(index) {
       this.$store.commit('SET_OPEN_EDIT', true);
@@ -116,30 +106,8 @@ export default {
       this.dataBulk = [];
     },
     bulkDelete() {
-      let tableData = this.$store.state.table.tableData.slice(0);
-      if (tableData.length === this.dataBulk.length) {
-        this.$store.commit('SET_TABLE_DATA', []);
-      } else {
-        let temp = [];
-        tableData.forEach((element, i) => {
-          this.dataBulk.forEach(el => {
-            if (
-              el.name === element.name &&
-              el.username === element.username &&
-              el.email === element.email &&
-              el.address === element.address
-            ) {
-              temp.push(i);
-            }
-          });
-        });
-        temp.reverse();
-        temp.forEach(el => {
-          tableData.splice(el, 1);
-        });
-        this.$store.commit('SET_TABLE_DATA', tableData);
-        this.dataBulk = [];
-      }
+      this.$store.commit('SET_OPEN_BULK_DELETE', true);
+      this.$store.commit('SET_DATA_BULK_DELETE', this.dataBulk);
     },
     rowClick(rowIndex) {
       this.$store.commit('SET_OPEN_DESC', true);

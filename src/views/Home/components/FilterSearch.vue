@@ -31,8 +31,6 @@
 </template>
 
 <script>
-import dummyColumn from '@/dummy/dummyColumn.js';
-
 export default {
   name: 'FilterSearch',
   data() {
@@ -43,14 +41,10 @@ export default {
   },
   computed: {
     filter() {
-      // console.log('table-data', this.$store.state.table.tableData);
-      // console.log('table-filter', this.$store.state.table.tableFilter);
       const payload = this.$store.state.table.tableData.slice(0);
-      // console.log('payload', dummyColumn);
       if (this.search === '') {
         this.$store.commit('SET_TABLE_DATA', payload);
         this.$store.commit('SET_TABLE_FILTER', []);
-        // console.log(this.$store.state.table.tableData, 'tabledata');
       } else {
         const data = this.$store.state.table.tableData.slice(0);
         const dataFilter = data.filter(el => {
@@ -64,8 +58,6 @@ export default {
             );
         });
         this.$store.commit('SET_TABLE_FILTER', dataFilter);
-        this.$store.commit('SET_COLUMNS', dummyColumn);
-        console.log(dataFilter, 'dataFilter');
       }
       return 'x';
     },

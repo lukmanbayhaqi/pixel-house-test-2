@@ -1,7 +1,8 @@
-import Home from '../../src/views/Home'
+import Home from '../../src/views/Home';
+
 const { name, components } = Home;
 
-describe('Home test', () => {
+describe('Home test section', () => {
   it('Will returning Components name', () => {
     expect(name).toBe('Home')
     expect(components).toHaveProperty('Table')
